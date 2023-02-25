@@ -26,7 +26,7 @@ const Template = async () => {
           </ul>
         </div>
         <div class="card_social">
-          <a href="https://twitter.com">
+          <a href="https://www.memegenerator.es/meme/16455216">
             <img src="${twitter}" />
           </a>
           <a href="https://github.com/AldahirRojas">

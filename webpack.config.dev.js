@@ -3,6 +3,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
     entry: './src/index.js',
@@ -12,7 +13,7 @@ module.exports = {
         assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
     mode: 'development',
-    watch: true,
+    devtool: 'source-map',
     resolve: {
         extensions: ['.js'],
         alias: {
@@ -20,6 +21,7 @@ module.exports = {
             '@templates': path.resolve(__dirname, 'src/templates/'),
             '@styles': path.resolve(__dirname, 'src/styles/'),
             '@images': path.resolve(__dirname, 'src/assets/images/'),
+            '@fonts': path.resolve(__dirname, 'src/assets/fonts/'),            
         }
     },
     module: {
@@ -50,7 +52,7 @@ module.exports = {
                         limit: 10000,
                         mimetype: "application/font-woff",
                         name: "[name].[contenthash].[ext]",
-                        outputPath: "./assets/fonts",
+                        outputPath: "../assets/fonts",
                         publicPath: "../assets/fonts",
                         esModule: false,
                     },
@@ -73,5 +75,13 @@ module.exports = {
             ]
         }),
         new Dotenv(),
+        new BundleAnalyzerPlugin(),
     ],
+    devServer: {
+        // watch: true,
+        static: path.join(__dirname,'dist'),
+        compress: true,
+        historyApiFallback: true,
+        port: 3006,
+    },
 }
